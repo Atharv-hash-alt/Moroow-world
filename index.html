@@ -1,0 +1,3974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#26372c">
+
+<title>Morrow — Your Little Woodland Companion</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+
+
+<style>
+
+/* =========================================
+   1. GLOBAL DESIGN SYSTEM
+========================================= */
+
+:root {
+    --forest: #26372c;
+    --forest2: #344638;
+    --moss: #78836a;
+    --linen: #e6ddc9;
+    --cream: #d8ceb5;
+    --bark: #96785b;
+    --glow: #d9a45f;
+    --ink: #28332b;
+    --muted: #a9ad9a;
+
+    --panel: rgba(25,39,30,.76);
+    --line: rgba(222,207,174,.17);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #1e2d23;
+    color: var(--linen);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    color: inherit;
+}
+
+.app {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 25%,
+            #526348 0,
+            #304334 34%,
+            #1d2b22 78%
+        );
+
+    position: relative;
+    isolation: isolate;
+}
+
+.app::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: .18;
+
+    background-image:
+        radial-gradient(
+            #d9c59b .7px,
+            transparent .7px
+        );
+
+    background-size: 23px 23px;
+    pointer-events: none;
+}
+
+
+/* =========================================
+   2. NAVIGATION
+========================================= */
+
+.topbar {
+    height: 78px;
+    max-width: 1280px;
+    margin: auto;
+    padding: 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.brand {
+    font: 500 31px Fraunces, serif;
+    letter-spacing: .02em;
+}
+
+.brand small {
+    display: block;
+    font: 12px 'DM Sans';
+    letter-spacing: .12em;
+    color: #c2c1a9;
+    margin-top: -3px;
+}
+
+.nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav button,
+.icon-btn {
+    background: transparent;
+    border: 0;
+    color: #c7c6b3;
+    padding: 10px 15px;
+    border-radius: 30px;
+}
+
+.nav button.active,
+.nav button:hover {
+    background: #e5d8bb;
+    color: #29372d;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pill {
+    border: 1px solid var(--line);
+    background: rgba(20,32,24,.35);
+    border-radius: 30px;
+    padding: 10px 17px;
+}
+
+.pill:hover {
+    background: rgba(232,216,184,.15);
+}
+
+
+/* =========================================
+   3. GENERAL LAYOUT
+========================================= */
+
+.main {
+    max-width: 1280px;
+    margin: auto;
+    padding: 30px 34px 54px;
+}
+
+.welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin: 10px 0 20px;
+}
+
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: .19em;
+    text-transform: uppercase;
+    color: #c5b48d;
+}
+
+.welcome h1 {
+    font: 400 clamp(30px,4vw,48px) Fraunces, serif;
+    margin: 8px 0 5px;
+}
+
+.welcome p {
+    color: #c1c3b0;
+    margin: 0;
+}
+
+.date {
+    font-size: 13px;
+    color: #b4b9a7;
+}
+
+.home-grid {
+    display: grid;
+    grid-template-columns: minmax(0,1.55fr) minmax(270px,.8fr);
+    gap: 20px;
+}
+
+
+/* =========================================
+   4. MORROW'S WOODLAND HOME
+========================================= */
+
+.scene {
+    min-height: 510px;
+
+    border: 1px solid rgba(227,207,168,.22);
+    border-radius: 28px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(18,31,24,.12),
+            rgba(14,24,19,.58)
+        ),
+        radial-gradient(
+            ellipse at 50% 85%,
+            #7a6946 0,
+            #46583d 24%,
+            transparent 55%
+        ),
+        linear-gradient(
+            180deg,
+            #263d35,
+            #334638 55%,
+            #26372c
+        );
+
+    box-shadow: 0 20px 60px #101b1680;
+}
+
+.moon {
+    position: absolute;
+    right: 13%;
+    top: 9%;
+
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+    background: #e4d3a7;
+
+    box-shadow: 0 0 50px #d9a45f55;
+}
+
+.moon::after {
+    content: "";
+
+    position: absolute;
+    left: 20px;
+    top: -8px;
+
+    width: 68px;
+    height: 68px;
+
+    border-radius: 50%;
+    background: #2c4135;
+}
+
+.tree {
+    position: absolute;
+    bottom: -55px;
+
+    width: 210px;
+    height: 400px;
+
+    border-radius: 48% 48% 0 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #26352b,
+            #46523b 50%,
+            #26372b
+        );
+
+    filter: drop-shadow(0 0 18px #18271e);
+}
+
+.tree.left {
+    left: -100px;
+    transform: rotate(8deg);
+}
+
+.tree.right {
+    right: -110px;
+    transform: rotate(-9deg);
+}
+
+.tree::before,
+.tree::after {
+    content: "";
+
+    position: absolute;
+    top: -55px;
+
+    width: 170px;
+    height: 145px;
+
+    border-radius: 50%;
+
+    background: #263c2e;
+
+    box-shadow:
+        40px 12px 0 #344b35,
+        -24px 38px 0 #3c5238;
+}
+
+.tree::after {
+    top: 35px;
+    left: 50px;
+    background: #3b5037;
+    transform: scale(.7);
+}
+
+
+/* =========================================
+   5. FIREFLIES
+========================================= */
+
+.firefly {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    background: #f5c875;
+    border-radius: 50%;
+
+    box-shadow: 0 0 15px 5px #e6b75a77;
+
+    animation: float 5s ease-in-out infinite;
+}
+
+.f1 {
+    left: 17%;
+    top: 48%;
+}
+
+.f2 {
+    right: 20%;
+    top: 38%;
+    animation-delay: 1.5s;
+}
+
+.f3 {
+    left: 70%;
+    top: 65%;
+    animation-delay: 2s;
+}
+
+.f4 {
+    left: 35%;
+    top: 28%;
+    animation-delay: 3s;
+}
+
+@keyframes float {
+    50% {
+        transform: translate(12px,-18px);
+        opacity: .45;
+    }
+}
+
+
+/* =========================================
+   6. MORROW'S CHARACTER
+========================================= */
+
+.scene-copy {
+    position: absolute;
+    left: 34px;
+    top: 30px;
+    z-index: 2;
+}
+
+.scene-copy h2 {
+    font: 400 27px Fraunces;
+    margin: 0 0 7px;
+}
+
+.scene-copy p {
+    margin: 0;
+    color: #c5c7b5;
+    font-size: 14px;
+}
+
+.mascot-wrap {
+    position: absolute;
+    left: 50%;
+    bottom: 34px;
+
+    transform: translateX(-50%);
+
+    width: min(390px,67%);
+
+    z-index: 3;
+    cursor: pointer;
+    touch-action: pan-y;
+}
+
+.mascot-wrap:active {
+    transform: translateX(-50%) scale(.985);
+}
+
+.mascot {
+    width: 100%;
+
+    filter: drop-shadow(0 18px 24px #101b18aa);
+
+    animation: bob 5s ease-in-out infinite;
+    transform-origin: 50% 90%;
+}
+
+.mascot.sleeping {
+    animation: sleepBob 5s ease-in-out infinite;
+}
+
+@keyframes bob {
+    0%,100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(1deg);
+    }
+}
+
+@keyframes sleepBob {
+    0%,100% {
+        transform: translateY(0) scaleY(1);
+    }
+
+    50% {
+        transform: translateY(4px) scaleY(.985);
+    }
+}
+
+.mascot-hint {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 11px;
+    letter-spacing: .1em;
+    color: #d1c6a9;
+
+    white-space: nowrap;
+    z-index: 4;
+}
+
+
+/* =========================================
+   7. MORROW'S SPEECH
+========================================= */
+
+.speech {
+    position: absolute;
+    right: 25px;
+    top: 28%;
+
+    max-width: 190px;
+
+    padding: 15px 17px;
+
+    border: 1px solid #d6c29a44;
+
+    background: #1e3029c9;
+    backdrop-filter: blur(10px);
+
+    border-radius: 18px 18px 5px 18px;
+
+    color: #eee1c6;
+    font: 17px Fraunces;
+
+    z-index: 5;
+    transition: .25s;
+}
+
+.speech small {
+    display: block;
+    font: 11px 'DM Sans';
+    color: #b7bba8;
+    margin-top: 6px;
+}
+
+
+/* =========================================
+   8. INTERACTION ZONES
+========================================= */
+
+.touch-zone {
+    position: absolute;
+    z-index: 6;
+
+    border: 0;
+    background: transparent;
+    border-radius: 50%;
+    padding: 0;
+
+    outline: none;
+    touch-action: manipulation;
+}
+
+.touch-zone:focus-visible {
+    outline: 2px dashed #e8c98f;
+    outline-offset: 3px;
+}
+
+/* Head */
+
+.head-zone {
+    left: 22%;
+    top: 5%;
+    width: 56%;
+    height: 46%;
+}
+
+/* Belly */
+
+.belly-zone {
+    left: 34%;
+    top: 49%;
+    width: 34%;
+    height: 42%;
+}
+
+/* Paw */
+
+.paw-zone {
+    right: 4%;
+    bottom: 2%;
+    width: 32%;
+    height: 34%;
+    cursor: grab;
+}
+
+.paw-zone:active {
+    cursor: grabbing;
+}
+
+
+/* =========================================
+   9. CHARACTER EXPRESSIONS
+========================================= */
+
+.mascot.blink #morrowEyes {
+    transform: scaleY(.1);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform .08s;
+}
+
+.mascot.sleeping #morrowEyes {
+    transform: scaleY(.08);
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.mascot.paw-hold #morrowArms {
+    transform: translateY(-8px) rotate(-3deg);
+    transform-origin: 180px 234px;
+    transition: transform .55s ease;
+}
+
+.mascot.belly-glow #bellyGlow {
+    animation: bellyPulse 1.25s ease-in-out 2;
+}
+
+.mascot.belly-glow #morrowEyes {
+    transform: translateY(6px);
+}
+
+.mascot.paw-hold #bellyGlow {
+    animation: bellyBreath 3.2s ease-in-out infinite;
+}
+
+.mascot.smile #morrowMouth {
+    transform: scaleY(1.35);
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.mascot.scratch #leafCrown {
+    animation: leafScratch .65s ease-in-out 2;
+}
+
+@keyframes bellyPulse {
+    0%,100% {
+        filter: drop-shadow(0 0 0 #f0b76500);
+        opacity: .95;
+    }
+
+    50% {
+        filter: drop-shadow(0 0 22px #f7c66e);
+        opacity: 1;
+    }
+}
+
+@keyframes bellyBreath {
+    0%,100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 8px #e6ad5a55);
+    }
+
+    50% {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 23px #f7c66e);
+    }
+}
+
+@keyframes leafScratch {
+    0%,100% {
+        transform: rotate(0);
+    }
+
+    30% {
+        transform: rotate(-7deg) translateY(2px);
+    }
+
+    70% {
+        transform: rotate(5deg);
+    }
+}
+
+
+/* =========================================
+   10. SIDE PANELS
+========================================= */
+
+.side {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.panel {
+    border: 1px solid var(--line);
+
+    background: var(--panel);
+
+    border-radius: 23px;
+    padding: 21px;
+
+    backdrop-filter: blur(14px);
+}
+
+.panel h3 {
+    font: 400 20px Fraunces;
+    margin: 0 0 8px;
+}
+
+.muted {
+    color: #adb5a3;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.invites {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-top: 16px;
+}
+
+.invite {
+    background: #d9ceb3;
+    color: #2d3b30;
+
+    border: 0;
+    border-radius: 15px;
+
+    padding: 13px 11px;
+    text-align: left;
+
+    transition: .2s;
+}
+
+.invite:hover {
+    transform: translateY(-2px);
+    background: #eadfc7;
+}
+
+.invite span {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.invite small {
+    font-size: 10px;
+    opacity: .7;
+}
+
+.invite .sym {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+
+/* =========================================
+   11. BREATHING ANIMATION
+========================================= */
+
+.breath-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 12px;
+}
+
+.breath-orb {
+    width: 65px;
+    height: 65px;
+
+    border-radius: 50%;
+
+    border: 1px solid #d9a45f88;
+
+    display: grid;
+    place-items: center;
+
+    color: #edc98a;
+
+    box-shadow: 0 0 25px #d9a45f22;
+}
+
+.breath-orb.go {
+    animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%,100% {
+        transform: scale(.85);
+        box-shadow: 0 0 15px #d9a45f22;
+    }
+
+    50% {
+        transform: scale(1.12);
+        box-shadow: 0 0 34px #d9a45f55;
+    }
+}
+
+.breath-info strong {
+    font: 17px Fraunces;
+    font-weight: 400;
+}
+
+.breath-info small {
+    display: block;
+    color: #adb5a3;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+
+/* =========================================
+   12. VOICE INTERACTION
+========================================= */
+
+.voice-invite {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    text-align: left;
+    color: #e7d9bc;
+}
+
+.voice-invite small {
+    font-size: 10px;
+    color: #b8b39e;
+}
+
+.voice-invite.listening {
+    border-color: #d9a45f;
+    background: #d9a45f20;
+}
+
+
+/* =========================================
+   13. SCREEN NAVIGATION
+========================================= */
+
+.section {
+    display: none;
+    animation: fade .3s ease;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.subhead {
+    margin: 10px 0 22px;
+}
+
+.subhead h1 {
+    font: 40px Fraunces;
+    margin: 8px 0;
+}
+
+.subhead p {
+    color: #b9c0ad;
+    margin: 0;
+}
+
+
+/* =========================================
+   14. FEATURE CARDS
+========================================= */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+}
+
+.feature {
+    padding: 22px;
+
+    border: 1px solid var(--line);
+    background: #1c2c23b8;
+
+    border-radius: 20px;
+    min-height: 155px;
+}
+
+.feature .ico {
+    font-size: 23px;
+    margin-bottom: 13px;
+}
+
+.feature h3 {
+    font: 19px Fraunces;
+    margin: 0 0 7px;
+}
+
+.feature p {
+    font-size: 12px;
+    color: #b4bba9;
+    line-height: 1.55;
+    margin: 0;
+}
+
+
+/* =========================================
+   15. FOREST SCREEN
+========================================= */
+
+.forest-layout {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 16px;
+}
+
+.forest-art {
+    height: 390px;
+
+    border-radius: 24px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(#293d35aa,#19271f88),
+        radial-gradient(
+            ellipse at 55% 90%,
+            #9a8052,
+            #526545 35%,
+            #1e332a 80%
+        );
+}
+
+.forest-art .mascot-wrap {
+    width: 245px;
+    bottom: 5px;
+}
+
+.forest-note {
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    font: 24px Fraunces;
+}
+
+.plant {
+    font-size: 58px;
+    position: absolute;
+    right: 18%;
+    bottom: 18%;
+    filter: drop-shadow(0 4px 8px #18251d);
+}
+
+.forest-morrow-caption {
+    font: 14px Fraunces;
+    color: #d8ceb5;
+    text-align: center;
+    margin-top: -3px;
+}
+
+.forest-companion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+
+/* =========================================
+   16. JOURNAL
+========================================= */
+
+.journal-box textarea {
+    width: 100%;
+    min-height: 180px;
+
+    background: #e4dac4;
+    color: #29372d;
+
+    border: 0;
+    border-radius: 16px;
+
+    padding: 17px;
+
+    resize: vertical;
+    outline: none;
+}
+
+.journal-box textarea::placeholder {
+    color: #79806d;
+}
+
+.journal-tools {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.btn-primary {
+    border: 0;
+
+    background: #ddc9a2;
+    color: #29372d;
+
+    border-radius: 25px;
+    padding: 11px 19px;
+
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: #f0dfbb;
+}
+
+.entry {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.entry strong {
+    font: 17px Fraunces;
+    font-weight: 400;
+}
+
+.entry small {
+    float: right;
+    color: #9ca893;
+    font-size: 11px;
+}
+
+.entry p {
+    font-size: 12px;
+    color: #b4bba9;
+    margin: 6px 0 0;
+}
+
+
+/* =========================================
+   17. BEDTIME SCREEN
+========================================= */
+
+.bedtime {
+    min-height: 570px;
+
+    border-radius: 28px;
+    border: 1px solid var(--line);
+
+    background:
+        radial-gradient(
+            ellipse at 50% 78%,
+            #5c6547,
+            #26372c 56%,
+            #18251e
+        );
+
+    position: relative;
+    overflow: hidden;
+
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.bedtime .mascot-wrap {
+    width: 290px;
+    bottom: 65px;
+}
+
+.bedtime h1 {
+    font: 42px Fraunces;
+    margin: 0;
+}
+
+.bedtime p {
+    color: #c0c2b0;
+}
+
+.bedtime-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.bedtime.fade-out {
+    animation: bedFade 18s ease forwards;
+}
+
+@keyframes bedFade {
+    to {
+        filter: brightness(.35);
+        opacity: .72;
+    }
+}
+
+
+/* =========================================
+   18. MY DAY / TASK PLANNER
+========================================= */
+
+.planner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+}
+
+.task input {
+    accent-color: #d9a45f;
+    width: 17px;
+    height: 17px;
+}
+
+.task.done span {
+    text-decoration: line-through;
+    color: #84907e;
+}
+
+.task-add {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.task-add input {
+    min-width: 0;
+    flex: 1;
+
+    border-radius: 22px;
+    border: 1px solid var(--line);
+
+    background: #14241c;
+    color: #eee1c6;
+
+    padding: 10px 14px;
+    outline: none;
+}
+
+
+/* =========================================
+   19. TOAST AND LOGIN MODAL
+========================================= */
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+
+    transform: translate(-50%,20px);
+
+    opacity: 0;
+    pointer-events: none;
+
+    background: #e1d2b1;
+    color: #29372d;
+
+    border-radius: 30px;
+    padding: 12px 18px;
+
+    font-size: 13px;
+    transition: .3s;
+
+    z-index: 20;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%,0);
+}
+
+.modal-back {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: #0b1510bb;
+
+    z-index: 30;
+
+    place-items: center;
+    padding: 20px;
+}
+
+.modal-back.open {
+    display: grid;
+}
+
+.modal {
+    width: min(440px,100%);
+
+    background: #2c4033;
+    border: 1px solid var(--line);
+
+    border-radius: 24px;
+    padding: 25px;
+
+    box-shadow: 0 20px 80px #0008;
+}
+
+.modal h2 {
+    font: 28px Fraunces;
+    margin: 0 0 8px;
+}
+
+.modal p {
+    color: #b9c0ad;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.modal label {
+    display: block;
+    font-size: 12px;
+    margin: 13px 0 6px;
+    color: #c8c4ad;
+}
+
+.modal input,
+.modal select {
+    width: 100%;
+
+    border-radius: 12px;
+    border: 1px solid var(--line);
+
+    background: #1b2b22;
+    color: #eee1c6;
+
+    padding: 11px;
+}
+
+.close {
+    float: right;
+    background: transparent;
+    border: 0;
+    font-size: 20px;
+    color: #d7c8a9;
+}
+
+.footer {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 34px 28px;
+
+    color: #82907d;
+    font-size: 11px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* =========================================
+   20. TIME-BASED ATMOSPHERE
+========================================= */
+
+.scene.period-afternoon {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(18,31,24,.1),
+            rgba(14,24,19,.35)
+        ),
+        radial-gradient(
+            ellipse at 50% 85%,
+            #8b8153 0,
+            #65704b 26%,
+            transparent 56%
+        ),
+        linear-gradient(
+            180deg,
+            #68735c,
+            #46583d 55%,
+            #26372c
+        );
+}
+
+.scene.period-evening {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(18,31,24,.12),
+            rgba(14,24,19,.58)
+        ),
+        radial-gradient(
+            ellipse at 50% 85%,
+            #806b49 0,
+            #4c5b40 24%,
+            transparent 55%
+        ),
+        linear-gradient(
+            180deg,
+            #38483e,
+            #344638 55%,
+            #26372c
+        );
+}
+
+.scene.period-winddown {
+    filter: saturate(.82);
+}
+
+.scene.period-sleep .firefly {
+    opacity: .42;
+    animation-duration: 8s;
+}
+
+body.night .scene {
+    filter: brightness(.62) saturate(.78);
+}
+
+.night .app {
+    filter: brightness(.82);
+}
+
+
+/* =========================================
+   21. RESPONSIVE DESIGN
+========================================= */
+
+@media(max-width:850px) {
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .nav {
+        gap: 0;
+    }
+
+    .nav button {
+        padding: 9px;
+    }
+
+    .main {
+        padding: 22px 18px 40px;
+    }
+
+    .home-grid,
+    .forest-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .scene {
+        min-height: 490px;
+    }
+
+    .side {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .welcome {
+        align-items: start;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+
+@media(max-width:560px) {
+
+    .topbar {
+        height: auto;
+        min-height: 70px;
+
+        flex-wrap: wrap;
+
+        padding: 12px 16px;
+        gap: 8px;
+    }
+
+    .brand {
+        font-size: 26px;
+    }
+
+    .brand small {
+        font-size: 10px;
+    }
+
+    .nav {
+        order: 3;
+
+        width: 100%;
+
+        justify-content: space-between;
+
+        border-top: 1px solid var(--line);
+        padding-top: 7px;
+    }
+
+    .nav button {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .top-actions .pill {
+        padding: 8px 11px;
+        font-size: 12px;
+    }
+
+    .main {
+        padding: 18px 13px 35px;
+    }
+
+    .scene {
+        min-height: 450px;
+    }
+
+    .scene-copy {
+        left: 20px;
+        top: 22px;
+    }
+
+    .scene-copy h2 {
+        font-size: 23px;
+    }
+
+    .mascot-wrap {
+        width: 75%;
+        bottom: 45px;
+    }
+
+    .speech {
+        right: 12px;
+        top: 25%;
+
+        max-width: 145px;
+
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .side {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-grid,
+    .planner-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .subhead h1 {
+        font-size: 34px;
+    }
+
+    .bedtime {
+        min-height: 540px;
+    }
+
+    .footer {
+        padding: 0 16px 22px;
+        display: block;
+    }
+
+    .footer span {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .mascot-hint {
+        font-size: 8px;
+    }
+
+    .voice-invite {
+        font-size: 12px;
+    }
+
+    .voice-invite small {
+        max-width: 125px;
+        text-align: right;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app" id="app">
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header class="topbar">
+
+    <div class="brand">
+        morrow
+        <small>YOUR LITTLE WOODLAND COMPANION</small>
+    </div>
+
+    <nav class="nav" aria-label="Main navigation">
+
+        <button class="active" data-page="home">Home</button>
+        <button data-page="forest">Forest</button>
+        <button data-page="journal">Journal</button>
+        <button data-page="bedtime">Bedtime</button>
+        <button data-page="more">My day</button>
+
+    </nav>
+
+    <div class="top-actions">
+
+        <button class="icon-btn" id="soundBtn" title="Toggle ambience">
+            ♫
+        </button>
+
+        <button class="icon-btn" id="dimBtn" title="Dim the lights">
+            ☾
+        </button>
+
+        <button class="pill" id="loginBtn">
+            Sign in
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="main">
+
+
+<!-- =====================================
+     HOME SCREEN
+===================================== -->
+
+<section class="section active" id="home">
+
+    <div class="welcome">
+
+        <div>
+
+            <div class="eyebrow">
+                A small pause in your day
+            </div>
+
+            <h1>Hello, little wanderer.</h1>
+
+            <p>
+                It's getting quiet in the forest.
+                What would feel nice right now?
+            </p>
+
+        </div>
+
+        <div class="date" id="today"></div>
+
+    </div>
+
+
+    <div class="home-grid">
+
+
+        <!-- MORROW'S WOODLAND SCENE -->
+
+        <div class="scene">
+
+            <div class="moon"></div>
+
+            <div class="tree left"></div>
+            <div class="tree right"></div>
+
+            <i class="firefly f1"></i>
+            <i class="firefly f2"></i>
+            <i class="firefly f3"></i>
+            <i class="firefly f4"></i>
+
+
+            <div class="scene-copy">
+
+                <h2>Meet Morrow</h2>
+
+                <p>
+                    Tap, hold, or just stay a while.
+                </p>
+
+            </div>
+
+
+            <div class="speech" id="speech">
+
+                Oh, hello.
+
+                <small>
+                    I'm glad you're here.
+                </small>
+
+            </div>
+
+
+            <!-- MORROW MASCOT -->
+
+            <div class="mascot-wrap" id="mascotTap" title="Tap Morrow">
+
+                <svg
+                    class="mascot"
+                    id="mascot"
+                    viewBox="0 0 360 360"
+                    role="img"
+                    aria-label="Morrow, a fluffy little woodland spirit"
+                >
+
+                    <defs>
+
+                        <radialGradient id="fur" cx="45%" cy="35%">
+
+                            <stop stop-color="#f2e6cb"/>
+                            <stop offset=".65" stop-color="#c8b99b"/>
+                            <stop offset="1" stop-color="#8e806a"/>
+
+                        </radialGradient>
+
+                        <radialGradient id="belly">
+
+                            <stop stop-color="#ffe1a0"/>
+                            <stop offset=".6" stop-color="#dfa75e"/>
+                            <stop offset="1" stop-color="#a66f3d"/>
+
+                        </radialGradient>
+
+                        <filter id="soft">
+
+                            <feGaussianBlur stdDeviation="4"/>
+
+                        </filter>
+
+                    </defs>
+
+
+                    <!-- SHADOW -->
+
+                    <ellipse
+                        cx="184"
+                        cy="315"
+                        rx="104"
+                        ry="20"
+                        fill="#101c16"
+                        opacity=".35"
+                        filter="url(#soft)"
+                    />
+
+
+                    <!-- FEET -->
+
+                    <ellipse
+                        cx="112"
+                        cy="290"
+                        rx="48"
+                        ry="31"
+                        fill="#a99a7f"
+                    />
+
+                    <ellipse
+                        cx="248"
+                        cy="290"
+                        rx="48"
+                        ry="31"
+                        fill="#a99a7f"
+                    />
+
+
+                    <!-- BODY -->
+
+                    <path
+                        d="
+                        M76 249
+                        Q47 178 82 111
+                        Q111 54 178 60
+                        Q258 48 286 121
+                        Q316 194 279 263
+                        Q251 318 180 314
+                        Q103 315 76 249Z
+                        "
+                        fill="url(#fur)"
+                        stroke="#e0d2b7"
+                        stroke-width="3"
+                    />
+
+
+                    <!-- FLUFFY EDGES -->
+
+                    <g fill="#d8c9ad">
+
+                        <circle cx="88" cy="123" r="19"/>
+                        <circle cx="73" cy="158" r="16"/>
+                        <circle cx="78" cy="204" r="17"/>
+                        <circle cx="98" cy="253" r="18"/>
+                        <circle cx="123" cy="282" r="15"/>
+
+                        <circle cx="265" cy="117" r="18"/>
+                        <circle cx="287" cy="158" r="17"/>
+                        <circle cx="286" cy="205" r="17"/>
+                        <circle cx="265" cy="252" r="18"/>
+                        <circle cx="239" cy="282" r="15"/>
+
+                        <circle cx="129" cy="73" r="17"/>
+                        <circle cx="164" cy="60" r="15"/>
+                        <circle cx="207" cy="62" r="16"/>
+                        <circle cx="240" cy="78" r="17"/>
+
+                    </g>
+
+
+                    <!-- GLOWING BELLY -->
+
+                    <ellipse
+                        id="bellyGlow"
+                        cx="181"
+                        cy="235"
+                        rx="65"
+                        ry="70"
+                        fill="url(#belly)"
+                        opacity=".95"
+                    />
+
+                    <ellipse
+                        cx="181"
+                        cy="235"
+                        rx="55"
+                        ry="60"
+                        fill="#f4d28e"
+                        opacity=".35"
+                    />
+
+
+                    <!-- ARMS -->
+
+                    <g id="morrowArms">
+
+                        <ellipse
+                            cx="83"
+                            cy="234"
+                            rx="31"
+                            ry="47"
+                            transform="rotate(-24 83 234)"
+                            fill="#b9aa8e"
+                        />
+
+                        <ellipse
+                            cx="278"
+                            cy="234"
+                            rx="31"
+                            ry="47"
+                            transform="rotate(24 278 234)"
+                            fill="#b9aa8e"
+                        />
+
+                    </g>
+
+
+                    <!-- EYES -->
+
+                    <g id="morrowEyes">
+
+                        <ellipse
+                            cx="137"
+                            cy="157"
+                            rx="14"
+                            ry="20"
+                            fill="#292820"
+                        />
+
+                        <ellipse
+                            cx="225"
+                            cy="157"
+                            rx="14"
+                            ry="20"
+                            fill="#292820"
+                        />
+
+                        <ellipse
+                            cx="141"
+                            cy="150"
+                            rx="4"
+                            ry="6"
+                            fill="#fff4dc"
+                        />
+
+                        <ellipse
+                            cx="229"
+                            cy="150"
+                            rx="4"
+                            ry="6"
+                            fill="#fff4dc"
+                        />
+
+                    </g>
+
+
+                    <!-- CHEEKS -->
+
+                    <ellipse
+                        cx="119"
+                        cy="184"
+                        rx="13"
+                        ry="7"
+                        fill="#d99b85"
+                        opacity=".4"
+                    />
+
+                    <ellipse
+                        cx="244"
+                        cy="184"
+                        rx="13"
+                        ry="7"
+                        fill="#d99b85"
+                        opacity=".4"
+                    />
+
+
+                    <!-- NOSE -->
+
+                    <path
+                        d="M174 183 Q181 176 188 183 Q181 193 174 183"
+                        fill="#6f5545"
+                    />
+
+
+                    <!-- MOUTH -->
+
+                    <g id="morrowMouth">
+
+                        <path
+                            d="
+                            M181 192
+                            Q176 200 168 196
+                            M181 192
+                            Q187 200 194 196
+                            "
+                            fill="none"
+                            stroke="#765d4a"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                        />
+
+                    </g>
+
+
+                    <!-- LEAF CROWN -->
+
+                    <g id="leafCrown">
+
+                        <path
+                            d="M116 84 Q92 39 124 28 Q145 47 128 83Z"
+                            fill="#637d50"
+                            stroke="#9aab75"
+                            stroke-width="2"
+                        />
+
+                        <path
+                            d="M146 67 Q142 22 178 18 Q194 45 160 73Z"
+                            fill="#849665"
+                            stroke="#b0b98a"
+                            stroke-width="2"
+                        />
+
+                        <path
+                            d="M190 68 Q206 27 236 42 Q239 68 201 82Z"
+                            fill="#566e47"
+                            stroke="#93a477"
+                            stroke-width="2"
+                        />
+
+                        <path
+                            d="
+                            M126 45 Q137 58 139 73
+                            M178 28 Q176 48 163 64
+                            M225 48 Q211 59 198 73
+                            "
+                            fill="none"
+                            stroke="#c2c99b"
+                            stroke-width="2"
+                            opacity=".8"
+                        />
+
+                    </g>
+
+
+                    <!-- FRECKLES -->
+
+                    <g fill="#8c7963" opacity=".55">
+
+                        <circle cx="111" cy="171" r="2"/>
+                        <circle cx="122" cy="176" r="1.6"/>
+
+                        <circle cx="250" cy="170" r="2"/>
+                        <circle cx="239" cy="176" r="1.6"/>
+
+                    </g>
+
+                </svg>
+
+
+                <!-- INTERACTION ZONES -->
+
+                <button
+                    class="touch-zone head-zone"
+                    id="tapHead"
+                    aria-label="Tap Morrow's head"
+                    title="Tap Morrow's head"
+                ></button>
+
+                <button
+                    class="touch-zone belly-zone"
+                    id="tapBelly"
+                    aria-label="Tap Morrow's glowing belly"
+                    title="Tap Morrow's belly"
+                ></button>
+
+                <button
+                    class="touch-zone paw-zone"
+                    id="holdPaw"
+                    aria-label="Hold Morrow's paw"
+                    title="Hold Morrow's paw"
+                ></button>
+
+            </div>
+
+
+            <div class="mascot-hint">
+
+                TAP ITS HEAD · TOUCH ITS BELLY · HOLD ITS PAW
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE PANELS -->
+
+        <div class="side">
+
+
+            <!-- USER INVITATIONS -->
+
+            <div class="panel">
+
+                <h3>What would feel nice?</h3>
+
+                <div class="muted">
+
+                    No need to figure everything out.
+                    Pick what feels right.
+
+                </div>
+
+
+                <div class="invites">
+
+                    <button class="invite" data-action="breathe">
+
+                        <div class="sym">◌</div>
+
+                        <span>Breathe together</span>
+
+                        <small>Find your pace</small>
+
+                    </button>
+
+
+                    <button class="invite" data-action="quiet">
+
+                        <div class="sym">☁</div>
+
+                        <span>Quiet my mind</span>
+
+                        <small>Let it all out</small>
+
+                    </button>
+
+
+                    <button class="invite" data-action="company">
+
+                        <div class="sym">♡</div>
+
+                        <span>Keep me company</span>
+
+                        <small>I'm right here</small>
+
+                    </button>
+
+
+                    <button class="invite" data-action="rest">
+
+                        <div class="sym">☾</div>
+
+                        <span>Just rest</span>
+
+                        <small>Nothing expected</small>
+
+                    </button>
+
+                </div>
+
+
+                <button
+                    class="pill voice-invite"
+                    id="microphoneBtn"
+                    style="margin-top:13px;width:100%"
+                >
+
+                    ◖ Speak to Morrow
+
+                    <small>
+                        Optional · microphone permission required
+                    </small>
+
+                </button>
+
+            </div>
+
+
+            <!-- BREATHING -->
+
+            <div class="panel">
+
+                <h3>A moment together</h3>
+
+                <div class="muted">
+
+                    Morrow's little belly rises and falls.
+                    You can follow along, or simply watch.
+
+                </div>
+
+
+                <div class="breath-row">
+
+                    <div class="breath-orb" id="breathOrb">
+                        ✦
+                    </div>
+
+                    <div class="breath-info">
+
+                        <strong id="breathLabel">
+                            Breathe with me
+                        </strong>
+
+                        <small id="breathSub">
+                            A gentle 4–6 rhythm · 1 minute
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="pill"
+                    style="margin-top:14px;width:100%"
+                    id="startBreath"
+                >
+                    Begin breathing
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     FOREST SCREEN
+===================================== -->
+
+<section class="section" id="forest">
+
+    <div class="subhead">
+
+        <div class="eyebrow">
+            Somewhere to wander
+        </div>
+
+        <h1>Morrow's little world</h1>
+
+        <p>
+            A small place that changes slowly.
+            Nothing to win, nowhere to rush.
+        </p>
+
+    </div>
+
+
+    <div class="forest-layout">
+
+
+        <div class="forest-art">
+
+            <div class="forest-note">
+                The old oak clearing
+            </div>
+
+            <div class="plant" id="forestPlant">
+                🌱
+            </div>
+
+
+            <div class="mascot-wrap forest-companion">
+
+                <svg
+                    class="mascot forest-mascot"
+                    viewBox="0 0 360 360"
+                    aria-hidden="true"
+                >
+
+                    <ellipse
+                        cx="180"
+                        cy="300"
+                        rx="104"
+                        ry="16"
+                        fill="#101c16"
+                        opacity=".4"
+                    />
+
+                    <path
+                        d="
+                        M76 249
+                        Q47 178 82 111
+                        Q111 54 178 60
+                        Q258 48 286 121
+                        Q316 194 279 263
+                        Q251 318 180 314
+                        Q103 315 76 249Z
+                        "
+                        fill="#c8b99b"
+                        stroke="#e0d2b7"
+                        stroke-width="3"
+                    />
+
+                    <ellipse
+                        cx="181"
+                        cy="235"
+                        rx="65"
+                        ry="70"
+                        fill="#dfa75e"
+                    />
+
+                    <ellipse
+                        cx="137"
+                        cy="157"
+                        rx="13"
+                        ry="18"
+                        fill="#292820"
+                    />
+
+                    <ellipse
+                        cx="225"
+                        cy="157"
+                        rx="13"
+                        ry="18"
+                        fill="#292820"
+                    />
+
+                    <path
+                        d="M174 183 Q181 176 188 183 Q181 193 174 183"
+                        fill="#6f5545"
+                    />
+
+                    <path
+                        d="M116 84 Q92 39 124 28 Q145 47 128 83Z"
+                        fill="#637d50"
+                    />
+
+                    <path
+                        d="M146 67 Q142 22 178 18 Q194 45 160 73Z"
+                        fill="#849665"
+                    />
+
+                    <path
+                        d="M190 68 Q206 27 236 42 Q239 68 201 82Z"
+                        fill="#566e47"
+                    />
+
+                </svg>
+
+
+                <div class="forest-morrow-caption">
+                    Morrow is watching the fireflies.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <h3>A little world, growing with you</h3>
+
+            <p class="muted">
+
+                Visit when you like. The clearing will change
+                with the weather and the time of day.
+
+                Your plant grows gently as you spend
+                quiet moments here.
+
+            </p>
+
+
+            <div class="entry">
+
+                <strong>Today's weather</strong>
+
+                <small>Soft drizzle</small>
+
+                <p>
+                    A little rain is passing through the trees.
+                </p>
+
+            </div>
+
+
+            <div class="entry">
+
+                <strong>Your little plant</strong>
+
+                <small>Day 04</small>
+
+                <p>
+                    Two new leaves. It seems to like the rain.
+                </p>
+
+            </div>
+
+
+            <div class="entry">
+
+                <strong>Forest sounds</strong>
+
+                <small>Optional</small>
+
+                <p>
+                    Rain · Night insects · Rustling leaves
+                </p>
+
+            </div>
+
+
+            <button class="btn-primary" id="forestSound">
+
+                Play forest ambience
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     JOURNAL SCREEN
+===================================== -->
+
+<section class="section" id="journal">
+
+    <div class="subhead">
+
+        <div class="eyebrow">
+            Leave something here
+        </div>
+
+        <h1>A space for your thoughts.</h1>
+
+        <p>
+            No word counts, no streaks, no right or wrong.
+            Just you.
+        </p>
+
+    </div>
+
+
+    <div class="planner-grid">
+
+
+        <div class="panel journal-box">
+
+            <h3>What's on your mind today?</h3>
+
+            <p class="muted">
+
+                You don't have to make sense of it all.
+                Start wherever you are.
+
+            </p>
+
+
+            <textarea
+                id="journalText"
+                placeholder="Maybe something happened today. Maybe nothing in particular. You can leave it here..."
+            ></textarea>
+
+
+            <div class="journal-tools">
+
+                <span class="muted" id="journalStatus">
+
+                    Only saved in this browser for this demo.
+
+                </span>
+
+
+                <button
+                    class="btn-primary"
+                    id="saveJournal"
+                >
+
+                    Save this thought
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <h3>Little things you've left here</h3>
+
+            <div id="entries">
+
+                <p class="muted">
+                    Your saved thoughts will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     BEDTIME SCREEN
+===================================== -->
+
+<section class="section" id="bedtime">
+
+    <div class="bedtime">
+
+        <div class="eyebrow">
+            A softer ending to the day
+        </div>
+
+        <h1>Let's slow down.</h1>
+
+        <p>
+            Take a deep breath with me.
+            There's nothing you need to do.
+        </p>
+
+
+        <div class="mascot-wrap">
+
+            <svg
+                class="mascot sleeping"
+                viewBox="0 0 360 360"
+            >
+
+                <ellipse
+                    cx="180"
+                    cy="300"
+                    rx="105"
+                    ry="20"
+                    fill="#111c16"
+                    opacity=".4"
+                />
+
+                <path
+                    d="
+                    M76 249
+                    Q47 178 82 111
+                    Q111 54 178 60
+                    Q258 48 286 121
+                    Q316 194 279 263
+                    Q251 318 180 314
+                    Q103 315 76 249Z
+                    "
+                    fill="#c8b99b"
+                />
+
+                <ellipse
+                    cx="181"
+                    cy="235"
+                    rx="65"
+                    ry="70"
+                    fill="#d9a45f"
+                />
+
+                <ellipse
+                    cx="137"
+                    cy="157"
+                    rx="14"
+                    ry="8"
+                    fill="#292820"
+                />
+
+                <ellipse
+                    cx="225"
+                    cy="157"
+                    rx="14"
+                    ry="8"
+                    fill="#292820"
+                />
+
+                <path
+                    d="M174 183 Q181 176 188 183 Q181 193 174 183"
+                    fill="#6f5545"
+                />
+
+                <path
+                    d="M116 84 Q92 39 124 28 Q145 47 128 83Z"
+                    fill="#637d50"
+                />
+
+                <path
+                    d="M146 67 Q142 22 178 18 Q194 45 160 73Z"
+                    fill="#849665"
+                />
+
+                <path
+                    d="M190 68 Q206 27 236 42 Q239 68 201 82Z"
+                    fill="#566e47"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <div class="bedtime-controls">
+
+            <button class="pill" id="bedBreath">
+                Breathe with Morrow
+            </button>
+
+            <button class="pill" id="sleepToggle">
+                Let Morrow sleep
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     MY DAY / VOXPLAN FEATURES
+===================================== -->
+
+<section class="section" id="more">
+
+    <div class="subhead">
+
+        <div class="eyebrow">
+            A little help with the rest of life
+        </div>
+
+        <h1>Your day, with room to breathe.</h1>
+
+        <p>
+            Morrow brings sleep, planning and wellbeing
+            into one gentle place.
+
+            These are prototype features, not connected services.
+        </p>
+
+    </div>
+
+
+    <div class="planner-grid">
+
+
+        <!-- TASKS -->
+
+        <div class="panel">
+
+            <h3>Today's small steps</h3>
+
+            <p class="muted">
+                Make a plan that leaves room for being human.
+            </p>
+
+
+            <div id="tasks">
+
+                <label class="task">
+
+                    <input type="checkbox">
+
+                    <span>
+                        Review tomorrow's class notes
+                    </span>
+
+                </label>
+
+
+                <label class="task">
+
+                    <input type="checkbox">
+
+                    <span>
+                        Take a proper lunch break
+                    </span>
+
+                </label>
+
+
+                <label class="task">
+
+                    <input type="checkbox">
+
+                    <span>
+                        Start the assignment outline
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <div class="task-add">
+
+                <input
+                    id="taskInput"
+                    placeholder="Add a small step..."
+                >
+
+                <button class="btn-primary" id="addTask">
+                    Add
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOOD -->
+
+        <div class="panel">
+
+            <h3>How are you arriving today?</h3>
+
+            <p class="muted">
+                A check-in, not a test.
+                Pick the closest fit.
+            </p>
+
+
+            <div class="invites">
+
+                <button class="invite mood" data-mood="Calm">
+                    ☀ <span>Calm</span>
+                </button>
+
+                <button class="invite mood" data-mood="Okay">
+                    ☁ <span>Okay</span>
+                </button>
+
+                <button class="invite mood" data-mood="Stretched">
+                    〰 <span>A bit stretched</span>
+                </button>
+
+                <button class="invite mood" data-mood="Low">
+                    ☾ <span>Low</span>
+                </button>
+
+            </div>
+
+
+            <p
+                class="muted"
+                id="moodResult"
+                style="margin-top:14px"
+            >
+                Your check-in stays private in this demo.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- WIDER MORROW WORLD -->
+
+    <div class="eyebrow" style="margin:28px 0 13px">
+        The wider Morrow world
+    </div>
+
+
+    <div class="feature-grid">
+
+
+        <article class="feature">
+
+            <div class="ico">☾</div>
+
+            <h3>Sleep & recovery</h3>
+
+            <p>
+                Sleep diary, quality check-ins, sleep trends,
+                wearable connections and gentle wake-up routines.
+            </p>
+
+        </article>
+
+
+        <article class="feature">
+
+            <div class="ico">⌁</div>
+
+            <h3>Personal AI companion</h3>
+
+            <p>
+                A voice and communication style that feels
+                right to you, with consent-first personalisation.
+            </p>
+
+        </article>
+
+
+        <article class="feature">
+
+            <div class="ico">◷</div>
+
+            <h3>Planning & priorities</h3>
+
+            <p>
+                Daily roadmaps, task breakdowns, calendar
+                connections and realistic time blocks.
+            </p>
+
+        </article>
+
+
+        <article class="feature">
+
+            <div class="ico">♡</div>
+
+            <h3>Mental wellbeing</h3>
+
+            <p>
+                Mood check-ins, guided breathing, brain dumps,
+                gratitude and supportive conversations.
+            </p>
+
+        </article>
+
+
+        <article class="feature">
+
+            <div class="ico">✎</div>
+
+            <h3>Private journal</h3>
+
+            <p>
+                Text and voice notes, thoughtful prompts,
+                reflection tools and protected personal entries.
+            </p>
+
+        </article>
+
+
+        <article class="feature">
+
+            <div class="ico">♧</div>
+
+            <h3>Focus & accountability</h3>
+
+            <p>
+                Focus sessions, gentle check-ins, recovery plans
+                and weekly reflections without shame.
+            </p>
+
+        </article>
+
+
+        <article class="feature">
+
+            <div class="ico">♧</div>
+
+            <h3>People & community</h3>
+
+            <p>
+                Opt-in study partners, interest groups, mentors
+                and human counselling with privacy controls.
+            </p>
+
+        </article>
+
+
+        <article class="feature">
+
+            <div class="ico">✧</div>
+
+            <h3>Playful pauses</h3>
+
+            <p>
+                Small memory, logic and focus activities
+                when you want a little mental reset.
+            </p>
+
+        </article>
+
+
+        <article class="feature">
+
+            <div class="ico">⛨</div>
+
+            <h3>Privacy by design</h3>
+
+            <p>
+                Permission-led integrations, secure storage,
+                data export and clear account controls.
+            </p>
+
+        </article>
+
+
+        <article class="feature">
+
+            <div class="ico">☼</div>
+
+            <h3>Plush companion sync</h3>
+
+            <p>
+                A future physical Morrow could share its
+                breathing rhythm, warm belly light and
+                sleep state with the digital companion.
+            </p>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer class="footer">
+
+    <span>
+        morrow · a little living world
+    </span>
+
+    <span>
+        Prototype experience · Your data stays in this browser in this demo
+    </span>
+
+</footer>
+
+</div>
+
+
+
+<!-- =====================================
+     LOGIN MODAL
+===================================== -->
+
+<div class="toast" id="toast"></div>
+
+
+<div class="modal-back" id="loginModal">
+
+    <div class="modal">
+
+        <button class="close" id="closeModal">
+            ×
+        </button>
+
+        <h2>Welcome to Morrow.</h2>
+
+        <p>
+            This is a front-end prototype.
+            Sign-in providers and cloud sync can be
+            connected when the product backend is ready.
+        </p>
+
+
+        <label>Email address</label>
+
+        <input
+            type="email"
+            placeholder="you@example.com"
+        >
+
+
+        <button
+            class="btn-primary"
+            style="width:100%;margin-top:16px"
+            id="demoSign"
+        >
+
+            Continue with email
+
+        </button>
+
+
+        <p style="text-align:center">
+            Google · Apple · Email
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
+
+<script>
+
+
+/* =========================================
+   1. BASIC HELPERS
+========================================= */
+
+const $ = selector => document.querySelector(selector);
+
+const $$ = selector => document.querySelectorAll(selector);
+
+
+const toast = message => {
+
+    const element = $('#toast');
+
+    element.textContent = message;
+
+    element.classList.add('show');
+
+    setTimeout(() => {
+        element.classList.remove('show');
+    }, 2300);
+
+};
+
+
+
+/* =========================================
+   2. MORROW'S PERSONALITY AND DIALOGUE
+========================================= */
+
+const phrases = {
+
+    tap: [
+        'Oh, hello.',
+        'I like when you visit.',
+        'Did you see that firefly?',
+        'Your hands are warm.'
+    ],
+
+    breathe: [
+        'We can take this slowly.',
+        'In... and out.',
+        'There is nowhere else to be.'
+    ],
+
+    quiet: [
+        'You can leave some of that here.',
+        'You do not have to solve it all tonight.'
+    ],
+
+    company: [
+        'We can just sit together.',
+        'I am right here.',
+        'We can stay like this.'
+    ],
+
+    rest: [
+        'I will be right here when you return.',
+        'Nothing is expected of you.'
+    ],
+
+    belly: [
+        "That's my favourite part.",
+        'A little warmth, just for you.'
+    ],
+
+    voice: [
+        'I am listening. Take your time.',
+        'You can tell me a little, or nothing at all.'
+    ]
+
+};
+
+
+let phraseIndex = 0;
+
+let idleTimer = null;
+let sleepTimer = null;
+
+let holdTimer = null;
+
+let breathInterval = null;
+
+
+
+/* =========================================
+   3. MORROW SPEAKS
+========================================= */
+
+function say(kind) {
+
+    const list = phrases[kind] || phrases.tap;
+
+    const speech = $('#speech');
+
+    speech.innerHTML =
+        list[phraseIndex++ % list.length] +
+        '<small>Morrow</small>';
+
+    speech.style.opacity = 1;
+
+
+    const mascot = $('#mascot');
+
+    mascot.classList.remove(
+        'sleeping',
+        'paw-hold',
+        'belly-glow',
+        'scratch'
+    );
+
+
+    resetIdle();
+
+
+    if (kind === 'rest') {
+
+        mascot.classList.add('sleeping');
+
+    }
+
+
+    if (kind === 'tap') {
+
+        mascot.classList.add('smile');
+
+        setTimeout(() => {
+
+            mascot.classList.remove('smile');
+
+        }, 1300);
+
+    }
+
+}
+
+
+
+/* =========================================
+   4. IDLE BEHAVIOUR
+========================================= */
+
+function resetIdle() {
+
+    clearTimeout(idleTimer);
+
+    clearTimeout(sleepTimer);
+
+
+    const mascot = $('#mascot');
+
+    mascot.classList.remove('sleeping');
+
+
+    idleTimer = setTimeout(() => {
+
+        mascot.classList.add('sleeping');
+
+    }, 28000);
+
+
+    sleepTimer = setTimeout(() => {
+
+        mascot.classList.add('sleeping');
+
+    }, 52000);
+
+}
+
+
+
+/* =========================================
+   5. BLINK ANIMATION
+========================================= */
+
+function blink() {
+
+    const mascot = $('#mascot');
+
+    if (!mascot || mascot.classList.contains('sleeping')) {
+        return;
+    }
+
+    mascot.classList.add('blink');
+
+    setTimeout(() => {
+
+        mascot.classList.remove('blink');
+
+    }, 150);
+
+}
+
+
+
+/* =========================================
+   6. RANDOM IDLE MOMENTS
+========================================= */
+
+function idleMoment() {
+
+    const mascot = $('#mascot');
+
+    if (!mascot) return;
+
+
+    const moments = [
+        'blink',
+        'scratch',
+        'firefly'
+    ];
+
+
+    const moment =
+        moments[Math.floor(Math.random() * moments.length)];
+
+
+    if (moment === 'blink') {
+
+        blink();
+
+    }
+
+
+    if (moment === 'scratch') {
+
+        mascot.classList.add('scratch');
+
+        setTimeout(() => {
+
+            mascot.classList.remove('scratch');
+
+        }, 1400);
+
+    }
+
+
+    if (moment === 'firefly') {
+
+        const speech = $('#speech');
+
+        speech.innerHTML =
+            'Oh, look. A little light.<small>Morrow</small>';
+
+        speech.style.opacity = 1;
+
+
+        setTimeout(() => {
+
+            speech.style.opacity = 0;
+
+        }, 2600);
+
+    }
+
+
+    setTimeout(
+        idleMoment,
+        8500 + Math.random() * 6500
+    );
+
+}
+
+
+
+/* =========================================
+   7. TAP MORROW'S HEAD
+========================================= */
+
+$('#tapHead').addEventListener('click', () => {
+
+    say('tap');
+
+    blink();
+
+});
+
+
+
+/* =========================================
+   8. TAP MORROW'S BELLY
+========================================= */
+
+$('#tapBelly').addEventListener('click', () => {
+
+    say('belly');
+
+    $('#mascot').classList.add('belly-glow');
+
+
+    setTimeout(() => {
+
+        $('#mascot').classList.remove('belly-glow');
+
+    }, 2600);
+
+});
+
+
+
+/* =========================================
+   9. HOLD MORROW'S PAW
+========================================= */
+
+const paw = $('#holdPaw');
+
+
+paw.addEventListener('pointerdown', () => {
+
+    clearTimeout(holdTimer);
+
+
+    holdTimer = setTimeout(() => {
+
+        say('company');
+
+
+        $('#mascot').classList.add('paw-hold');
+
+        $('#breathOrb').classList.add('go');
+
+
+        $('#breathLabel').textContent =
+            'Morrow is holding your paw';
+
+        $('#breathSub').textContent =
+            'Stay for as long as you like.';
+
+    }, 520);
+
+});
+
+
+['pointerup', 'pointerleave', 'pointercancel'].forEach(event => {
+
+    paw.addEventListener(event, () => {
+
+        clearTimeout(holdTimer);
+
+
+        $('#mascot').classList.remove('paw-hold');
+
+        $('#breathOrb').classList.remove('go');
+
+
+        $('#breathLabel').textContent =
+            'Breathe with me';
+
+        $('#breathSub').textContent =
+            'A gentle 4–6 rhythm · 1 minute';
+
+    });
+
+});
+
+
+
+/* =========================================
+   10. VOICE INTERACTION
+========================================= */
+
+function listenToMorrow() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if (!SpeechRecognition) {
+
+        toast(
+            'Voice input is not supported in this browser. You can still tap Morrow.'
+        );
+
+        return;
+
+    }
+
+
+    const button = $('#microphoneBtn');
+
+
+    const recognition = new SpeechRecognition();
+
+
+    recognition.lang = 'en-IN';
+
+    recognition.continuous = false;
+
+    recognition.interimResults = false;
+
+
+    button.classList.add('listening');
+
+    button.textContent = '◉ Listening...';
+
+
+    say('voice');
+
+
+    recognition.onresult = event => {
+
+        const words =
+            event.results[0][0].transcript.toLowerCase();
+
+
+        if (
+            /stress|worry|anxious|overwhelm|bad day|upset/.test(words)
+        ) {
+
+            say('quiet');
+
+        }
+
+
+        else if (
+            /sleep|tired|bed|rest/.test(words)
+        ) {
+
+            say('rest');
+
+            go('bedtime');
+
+        }
+
+
+        else if (
+            /plan|work|study|assignment|tomorrow|deadline/.test(words)
+        ) {
+
+            say('company');
+
+            toast(
+                'Morrow heard you. You can shape a small plan in My day.'
+            );
+
+        }
+
+
+        else {
+
+            say('company');
+
+        }
+
+    };
+
+
+    recognition.onerror = () => {
+
+        toast(
+            'Morrow could not hear that. You can try again whenever you like.'
+        );
+
+    };
+
+
+    recognition.onend = () => {
+
+        button.classList.remove('listening');
+
+        button.innerHTML =
+            '◖ Speak to Morrow <small>Optional · microphone permission required</small>';
+
+    };
+
+
+    try {
+
+        recognition.start();
+
+    }
+
+    catch(error) {
+
+        button.classList.remove('listening');
+
+        button.innerHTML =
+            '◖ Speak to Morrow <small>Optional · microphone permission required</small>';
+
+        toast('The microphone is already in use.');
+
+    }
+
+}
+
+
+$('#microphoneBtn').addEventListener(
+    'click',
+    listenToMorrow
+);
+
+
+
+/* =========================================
+   11. START IDLE ANIMATIONS
+========================================= */
+
+resetIdle();
+
+setTimeout(idleMoment, 8000);
+
+
+
+/* =========================================
+   12. NAVIGATION
+========================================= */
+
+function go(page) {
+
+    $$('.section').forEach(section => {
+
+        section.classList.remove('active');
+
+    });
+
+
+    $('#' + page).classList.add('active');
+
+
+    $$('.nav button').forEach(button => {
+
+        button.classList.toggle(
+            'active',
+            button.dataset.page === page
+        );
+
+    });
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+
+}
+
+
+$$('.nav button').forEach(button => {
+
+    button.addEventListener('click', () => {
+
+        go(button.dataset.page);
+
+    });
+
+});
+
+
+
+/* =========================================
+   13. INVITATION BUTTONS
+========================================= */
+
+$$('.invite[data-action]').forEach(button => {
+
+    button.addEventListener('click', () => {
+
+        const action = button.dataset.action;
+
+
+        say(action);
+
+
+        if (action === 'breathe') {
+
+            startBreath();
+
+        }
+
+
+        if (action === 'rest') {
+
+            go('bedtime');
+
+        }
+
+    });
+
+});
+
+
+
+/* =========================================
+   14. GUIDED BREATHING
+========================================= */
+
+function startBreath() {
+
+    const orb = $('#breathOrb');
+
+    orb.classList.add('go');
+
+
+    $('#breathLabel').textContent =
+        'Breathe in... and out';
+
+    $('#breathSub').textContent =
+        'Follow the gentle rhythm';
+
+
+    say('breathe');
+
+
+    if (breathInterval) {
+
+        clearTimeout(breathInterval);
+
+    }
+
+
+    breathInterval = setTimeout(() => {
+
+        orb.classList.remove('go');
+
+
+        $('#breathLabel').textContent =
+            'A little more settled';
+
+        $('#breathSub').textContent =
+            'You made a little space';
+
+
+        toast(
+            'That was enough. Well done for pausing.'
+        );
+
+    }, 60000);
+
+}
+
+
+$('#startBreath').onclick = startBreath;
+
+
+$('#bedBreath').onclick = () => {
+
+    startBreath();
+
+    toast('Breathe slowly with Morrow.');
+
+};
+
+
+
+/* =========================================
+   15. BEDTIME MODE
+========================================= */
+
+$('#sleepToggle').onclick = () => {
+
+    say('rest');
+
+    $('.bedtime').classList.add('fade-out');
+
+    toast('Morrow is getting cosy. You can rest too.');
+
+};
+
+
+
+/* =========================================
+   16. CURRENT DATE
+========================================= */
+
+$('#today').textContent =
+
+    new Intl.DateTimeFormat('en', {
+
+        weekday: 'long',
+
+        month: 'long',
+
+        day: 'numeric'
+
+    }).format(new Date());
+
+
+
+/* =========================================
+   17. TIME-BASED MORROW BEHAVIOUR
+========================================= */
+
+function setForestTime() {
+
+    const hour = new Date().getHours();
+
+
+    let period = 'evening';
+
+    let title = 'The day is beginning to settle.';
+
+    let prompt = 'What would feel nice right now?';
+
+
+
+    if (hour >= 12 && hour < 17) {
+
+        period = 'afternoon';
+
+        title = 'Hello, little wanderer.';
+
+        prompt =
+            'The forest is awake. Shall we take a little pause?';
+
+    }
+
+
+    else if (hour >= 17 && hour < 20) {
+
+        period = 'evening';
+
+        title = 'The day is beginning to settle.';
+
+        prompt =
+            'What would feel nice as things slow down?';
+
+    }
+
+
+    else if (hour >= 20 && hour < 23) {
+
+        period = 'bedtime';
+
+        title = "It's getting quiet in the forest.";
+
+        prompt = 'What would feel nice tonight?';
+
+    }
+
+
+    else if (hour >= 23 || hour < 5) {
+
+        period = 'winddown';
+
+        title = 'The forest is almost asleep.';
+
+        prompt =
+            'We can make the world a little quieter.';
+
+    }
+
+
+    else {
+
+        period = 'morning';
+
+        title = 'Good morning, little wanderer.';
+
+        prompt = 'The forest is waking up slowly.';
+
+    }
+
+
+
+    $('.scene').classList.remove(
+        'period-afternoon',
+        'period-evening',
+        'period-winddown',
+        'period-sleep'
+    );
+
+
+    $('.scene').classList.add(
+        period === 'winddown'
+            ? 'period-sleep'
+            : `period-${period}`
+    );
+
+
+    const heading = $('.welcome h1');
+
+    const line = $('.welcome p');
+
+
+    if (heading) heading.textContent = title;
+
+    if (line) line.textContent = prompt;
+
+
+    if (period === 'winddown') {
+
+        $('#speech').innerHTML =
+            'I think I might curl up soon.<small>Morrow</small>';
+
+    }
+
+}
+
+
+setForestTime();
+
+
+
+/* =========================================
+   18. JOURNAL STORAGE
+========================================= */
+
+let entries = [];
+
+
+try {
+
+    entries = JSON.parse(
+        localStorage.getItem('morrowEntries') || '[]'
+    );
+
+    if (!Array.isArray(entries)) {
+        entries = [];
+    }
+
+}
+
+catch(error) {
+
+    entries = [];
+
+}
+
+
+
+/* =========================================
+   19. ESCAPE HTML
+========================================= */
+
+function escapeHtml(text) {
+
+    return text.replace(/[&<>"']/g, character => {
+
+        return {
+
+            '&': '&amp;',
+
+            '<': '&lt;',
+
+            '>': '&gt;',
+
+            '"': '&quot;',
+
+            "'": '&#39;'
+
+        }[character];
+
+    });
+
+}
+
+
+
+/* =========================================
+   20. DISPLAY JOURNAL ENTRIES
+========================================= */
+
+function renderEntries() {
+
+    const box = $('#entries');
+
+
+    if (!entries.length) {
+
+        box.innerHTML =
+
+            '<p class="muted">Your saved thoughts will appear here.</p>';
+
+        return;
+
+    }
+
+
+    box.innerHTML = entries.map(entry => {
+
+        return `
+
+            <div class="entry">
+
+                <strong>
+                    ${escapeHtml(entry.text.slice(0,34))}
+                    ${entry.text.length > 34 ? '…' : ''}
+                </strong>
+
+                <small>
+                    ${escapeHtml(entry.date)}
+                </small>
+
+                <p>
+                    ${escapeHtml(entry.text)}
+                </p>
+
+            </div>
+
+        `;
+
+    }).join('');
+
+}
+
+
+renderEntries();
+
+
+
+/* =========================================
+   21. SAVE JOURNAL ENTRY
+========================================= */
+
+$('#saveJournal').onclick = () => {
+
+    const text = $('#journalText').value.trim();
+
+
+    if (!text) {
+
+        toast('Leave a little thought first.');
+
+        return;
+
+    }
+
+
+    entries.unshift({
+
+        text: text,
+
+        date: new Date().toLocaleDateString()
+
+    });
+
+
+    try {
+
+        localStorage.setItem(
+            'morrowEntries',
+            JSON.stringify(entries)
+        );
+
+    }
+
+    catch(error) {
+
+        toast('Could not save this entry in your browser.');
+
+        return;
+
+    }
+
+
+    $('#journalText').value = '';
+
+    renderEntries();
+
+
+    toast(
+        'Your thought has been saved in this browser.'
+    );
+
+
+    say('company');
+
+};
+
+
+
+/* =========================================
+   22. TASK MANAGEMENT
+========================================= */
+
+$('#addTask').onclick = () => {
+
+    const value = $('#taskInput').value.trim();
+
+
+    if (!value) return;
+
+
+    const label = document.createElement('label');
+
+    label.className = 'task';
+
+
+    const input = document.createElement('input');
+
+    input.type = 'checkbox';
+
+
+    const span = document.createElement('span');
+
+    span.textContent = value;
+
+
+    label.append(input, span);
+
+
+    input.onchange = () => {
+
+        label.classList.toggle(
+            'done',
+            input.checked
+        );
+
+    };
+
+
+    $('#tasks').append(label);
+
+
+    $('#taskInput').value = '';
+
+};
+
+
+
+/* =========================================
+   23. INITIAL TASK CHECKBOXES
+========================================= */
+
+$$('#tasks input').forEach(input => {
+
+    input.onchange = () => {
+
+        input.closest('.task').classList.toggle(
+            'done',
+            input.checked
+        );
+
+    };
+
+});
+
+
+
+/* =========================================
+   24. MOOD CHECK-IN
+========================================= */
+
+$$('.mood').forEach(button => {
+
+    button.onclick = () => {
+
+        const mood = button.dataset.mood;
+
+
+        $('#moodResult').textContent =
+
+            `You checked in as feeling ${mood.toLowerCase()}. Morrow will meet you where you are.`;
+
+
+        toast(
+            'A little check-in saved for this moment.'
+        );
+
+    };
+
+});
+
+
+
+/* =========================================
+   25. LIGHTING
+========================================= */
+
+$('#dimBtn').onclick = () => {
+
+    document.body.classList.toggle('night');
+
+
+    toast(
+
+        document.body.classList.contains('night')
+
+            ? 'The forest is a little dimmer.'
+
+            : 'The forest is back to its usual glow.'
+
+    );
+
+};
+
+
+
+/* =========================================
+   26. AMBIENT SOUND PLACEHOLDER
+========================================= */
+
+$('#soundBtn').onclick = () => {
+
+    toast(
+        'Ambient audio can be connected in a later build.'
+    );
+
+};
+
+
+$('#forestSound').onclick = () => {
+
+    toast(
+        'Forest ambience is a planned audio feature.'
+    );
+
+};
+
+
+
+/* =========================================
+   27. LOGIN MODAL
+========================================= */
+
+$('#loginBtn').onclick = () => {
+
+    $('#loginModal').classList.add('open');
+
+};
+
+
+$('#closeModal').onclick = () => {
+
+    $('#loginModal').classList.remove('open');
+
+};
+
+
+$('#demoSign').onclick = () => {
+
+    $('#loginModal').classList.remove('open');
+
+    toast(
+        'Sign-in is a demo placeholder.'
+    );
+
+};
+
+
+$('#loginModal').addEventListener('click', event => {
+
+    if (event.target.id === 'loginModal') {
+
+        $('#loginModal').classList.remove('open');
+
+    }
+
+});
+
+
+</script>
+
+</body>
+</html>
